@@ -2,16 +2,33 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
-func test() {
-	var arr [3]int
-	brr := arr[1:2]      // 创建一个切片，引用数组 arr。长度为 1，容量为 2
-	brr = append(brr, 9) // 长度 为 2， 容量为 2
-	brr = append(brr, 9) // 长度为 3 ，容量为 4
-	fmt.Println(len(brr), cap(brr))
+// [-1,1,2,-2,3]  子串最大和=4
+func maxArr(arr []int) int {
+	return 0
+}
+func main() {
+
+	go func() {
+		defer func() {
+			recover()
+		}()
+		process()
+	}()
+
+	termChan := make(chan os.Signal)
+	signal.Notify(termChan, syscall.SIGINT, syscall.SIGTERM)
+	<-termChan
+
+	clean()
+
+	fmt.Println(" 程序退出")
 }
 
-func main() {
-	test()
-}
+func process() {}
+
+func clean() {}
